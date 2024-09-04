@@ -2,6 +2,7 @@ package com.example.agenda.appointments;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public record AppointmentsResponseDTO(
         Long appointmentsId,
@@ -9,8 +10,8 @@ public record AppointmentsResponseDTO(
         String professionalName,
         String serviceName,
         LocalDate appointmentDate,
-        String status,
-        String horario
+        AppointmentStatus status,
+        LocalTime horario
 
         )
 {

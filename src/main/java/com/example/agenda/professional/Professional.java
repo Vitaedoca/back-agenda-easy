@@ -2,7 +2,6 @@ package com.example.agenda.professional;
 
 
 import com.example.agenda.appointments.Appointments;
-import com.example.agenda.availability.Availability;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,14 +28,12 @@ public class Professional {
 //    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private Set<Appointments> appointments;
 
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Availability> availability;
-
     public Professional(ProfessionalRequestDTO data) {
         this.professionalId = data.professionalId();
         this.fullName = data.fullName();
         this.email = data.email();
         this.passwordHash = data.passwordHash();
+        this.phoneNumber = data.phoneNumber();
         this.specialty = data.specialty();
     }
 }

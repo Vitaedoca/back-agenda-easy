@@ -60,6 +60,7 @@ public class ProfessionalController {
             professional.setFullName(data.fullName());
             professional.setEmail(data.email());
             professional.setPasswordHash(data.passwordHash());
+            professional.setPhoneNumber(data.phoneNumber());
             professional.setSpecialty(data.specialty());
 
             // Salva o profissional atualizado

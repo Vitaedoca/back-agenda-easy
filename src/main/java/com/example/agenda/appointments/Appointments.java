@@ -11,6 +11,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Table(name = "appointments")
 @Entity(name = "appointments")
@@ -41,9 +42,14 @@ public class Appointments {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate appointmentDate;
 
-    private String status;
-    private String createdAt;
-    private String horario;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    @Column(nullable = false)
+    private LocalTime horario;
+
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatus status;
+
+
 
     public Appointments(AppointmentsRequestDTO data, Users user, Professional professional, Services service) {
         this.user = user;

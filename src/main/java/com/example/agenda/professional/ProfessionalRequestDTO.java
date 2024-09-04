@@ -6,7 +6,8 @@ public record ProfessionalRequestDTO(
         String email,
         String passwordHash,
         String phoneNumber,
-        String specialty) {
+        String specialty
+) {
 
     // Construtor para criar DTO a partir de um objeto Professional
     public ProfessionalRequestDTO(Professional professional) {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public record AppointmentsRequestDTO(
         Long userId,
@@ -11,8 +12,8 @@ public record AppointmentsRequestDTO(
         Long serviceId,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         LocalDate appointmentDate,
-        String status,
-        String horario
+        AppointmentStatus status,
+        LocalTime horario
         )
 {
 
