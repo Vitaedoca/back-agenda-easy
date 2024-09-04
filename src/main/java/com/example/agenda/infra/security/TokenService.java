@@ -5,7 +5,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.example.agenda.admin.Admin;
 import com.example.agenda.user.Users;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generatetoken(Admin admin) {
+    public String generatetoken(Users user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
@@ -28,7 +27,7 @@ public class TokenService {
                     // Quem está emitindo esse token
                     .withIssuer("agenda")
                     // Quem está sendo o sujeito que está recebendo esse token
-                    .withSubject(admin.getEmail())
+                    .withSubject(user.getEmail())
                     // Tempo de expiração do token
                     .withExpiresAt(this.generateExpirationDate())
                     // Gerando o token em si

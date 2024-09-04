@@ -7,6 +7,8 @@ import com.example.agenda.auth.LoginRequestDTO;
 import com.example.agenda.auth.RegisterRequestDTO;
 import com.example.agenda.auth.ResponseDTO;
 import com.example.agenda.infra.security.TokenService;
+import com.example.agenda.user.UserRepository;
+import com.example.agenda.user.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,33 +21,33 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AdminRepository repository;
+    private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO body) {
-        Admin admin = this.repository.findByEmail(body.email()).orElseThrow(() -> new RuntimeException("User not found"));
-        if(passwordEncoder.matches(body.password(), admin.getPasswordHash())) {
-            String token = this.tokenService.generatetoken(admin);
-            return ResponseEntity.ok(new ResponseDTO(admin.getFullName(), token));
+        Users user = this.repository.findByEmail(body.email()).orElseThrow(() -> new RuntimeException("User not found"));
+        if(passwordEncoder.matches(body.password(), user.getPasswordHash())) {
+            String token = this.tokenService.generatetoken(user);
+            return ResponseEntity.ok(new ResponseDTO(user.getFullName(), token));
         }
         return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterRequestDTO body) {
-        Optional<Admin> admin = this.repository.findByEmail(body.email());
+        Optional<Users> user = this.repository.findByEmail(body.email());
 
-        if(admin.isEmpty()) {
-            Admin newAdmin = new Admin();
-            newAdmin.setPasswordHash(passwordEncoder.encode(body.password()));
-            newAdmin.setEmail(body.email());
-            newAdmin.setFullName(body.name());
-            this.repository.save(newAdmin);
+        if(user.isEmpty()) {
+            Users newUser = new Users();
+            newUser.setPasswordHash(passwordEncoder.encode(body.password()));
+            newUser.setEmail(body.email());
+            newUser.setFullName(body.name());
+            this.repository.save(newUser);
 
-            String token = this.tokenService.generatetoken(newAdmin);
-            return ResponseEntity.ok(new ResponseDTO(newAdmin.getFullName(), token));
+            String token = this.tokenService.generatetoken(newUser);
+            return ResponseEntity.ok(new ResponseDTO(newUser.getFullName(), token));
         }
         return ResponseEntity.badRequest().build();
     }

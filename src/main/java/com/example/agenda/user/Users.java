@@ -2,6 +2,7 @@ package com.example.agenda.user;
 
 
 import com.example.agenda.appointments.Appointments;
+import com.example.agenda.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +28,14 @@ public class Users {
     private String phoneNumber;
     private String email;
     private String passwordHash;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "tb_users_roles",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "roleId")
+    )
+    private Set<Role> roles;
     private String createdAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -38,4 +47,5 @@ public class Users {
         this.email = data.email();
         this.passwordHash = data.passwordHash();
     }
+
 }
