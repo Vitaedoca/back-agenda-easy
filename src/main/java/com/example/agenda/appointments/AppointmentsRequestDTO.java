@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public record AppointmentsRequestDTO(
-        Long userId,
+        Long clientId,
         Long professionalId,
         Long serviceId,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")

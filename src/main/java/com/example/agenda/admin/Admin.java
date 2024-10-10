@@ -15,14 +15,18 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminId;
-    private String fullName;
+    private String name;
+    private String photo;
+    private String coverPhoto;
+    private String phone;
+    private String status;
     private String email;
-    private String passwordHash;
+    private String password;
 
 
     public Admin(AdminRequestDTO data) {
-        this.fullName = data.fullName();
+        this.name = data.name();
         this.email = data.email();
-        this.passwordHash = data.passwordHash();
+        this.password = data.password();
     }
 }

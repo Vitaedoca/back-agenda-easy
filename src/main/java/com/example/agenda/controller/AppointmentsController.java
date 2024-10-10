@@ -1,12 +1,12 @@
 package com.example.agenda.controller;
 
 import com.example.agenda.appointments.*;
+import com.example.agenda.client.Client;
 import com.example.agenda.professional.Professional;
 import com.example.agenda.professional.ProfessionalRepository;
 import com.example.agenda.services.ServiceRepository;
 import com.example.agenda.services.Services;
-import com.example.agenda.user.UserRepository;
-import com.example.agenda.user.Users;
+import com.example.agenda.client.ClientRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class AppointmentsController {
     private AppointmentsRepository repository;
 
     @Autowired
-    private UserRepository userRepository;
+    private ClientRepository userRepository;
 
     @Autowired
     private ServiceRepository serviceRepository;
@@ -40,11 +40,11 @@ public class AppointmentsController {
 
     @PostMapping
     public ResponseEntity addAppointments(@RequestBody AppointmentsRequestDTO data) {
-        Users user = userRepository.findById(data.userId()).orElseThrow(() -> new RuntimeException("Not encontrei"));
+        Client client = userRepository.findById(data.clientId()).orElseThrow(() -> new RuntimeException("Not encontrei"));
         Professional professional = professionalRepository.findById(data.professionalId()).orElseThrow(() -> new RuntimeException("Não encontrei"));
         Services service = serviceRepository.findById(data.serviceId()).orElseThrow(() -> new RuntimeException("Não encontrei"));
 
-        Appointments appointments = new Appointments(data, user, professional, service);
+        Appointments appointments = new Appointments(data, client, professional, service);
         repository.save(appointments);
         return ResponseEntity.ok().build();
     }

@@ -2,8 +2,12 @@ package com.example.agenda.admin;
 
 public record AdminRequestDTO(
         Long adminId,
-        String fullName,
+        String name,
+        String phone,
+        String photo,
+        String coverPhoto,
+        String status,
         String email,
-        String passwordHash
+        String password
 ) {
 }

@@ -1,16 +1,15 @@
 package com.example.agenda.appointments;
 
 
+import com.example.agenda.client.Client;
 import com.example.agenda.professional.Professional;
 import com.example.agenda.services.Services;
-import com.example.agenda.user.Users;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Table(name = "appointments")
@@ -27,9 +26,9 @@ public class Appointments {
     private Long appointmentsId;
 
     @ManyToOne
-    @JoinColumn(name = "userId")  // Define a chave estrangeira para o usuário
+    @JoinColumn(name = "client_id")  // Define a chave estrangeira para o usuário
     @JsonIgnore
-    private Users user;
+    private Client client;
 
     @ManyToOne
     @JoinColumn(name = "professionalId")  // Define a chave estrangeira para o profissional
@@ -51,8 +50,8 @@ public class Appointments {
 
 
 
-    public Appointments(AppointmentsRequestDTO data, Users user, Professional professional, Services service) {
-        this.user = user;
+    public Appointments(AppointmentsRequestDTO data, Client client, Professional professional, Services service) {
+        this.client = client;
         this.professional = professional;
         this.service = service;
         this.appointmentDate = data.appointmentDate();

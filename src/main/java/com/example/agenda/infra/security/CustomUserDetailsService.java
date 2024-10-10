@@ -1,10 +1,7 @@
 package com.example.agenda.infra.security;
 
-import com.example.agenda.admin.Admin;
-import com.example.agenda.admin.AdminRepository;
-import com.example.agenda.user.UserRepository;
-import com.example.agenda.user.Users;
-import org.hibernate.annotations.Comment;
+import com.example.agenda.client.Client;
+import com.example.agenda.client.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,11 +14,11 @@ import java.util.ArrayList;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository repository;
+    private ClientRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = this.repository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPasswordHash(), new ArrayList<>());
+        Client client = this.repository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return new org.springframework.security.core.userdetails.User(client.getEmail(), client.getPassword(), new ArrayList<>());
     }
 }

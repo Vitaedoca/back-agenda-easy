@@ -39,9 +39,9 @@ public class AdminController {
 
         if(optionalAdmin.isPresent()) {
             Admin admin = optionalAdmin.get();
-            admin.setFullName(data.fullName());
+            admin.setName(data.name());
             admin.setEmail(data.email());
-            admin.setPasswordHash(data.passwordHash());
+            admin.setPassword(data.password());
             return ResponseEntity.ok(admin);
         }else {
             return ResponseEntity.notFound().build();

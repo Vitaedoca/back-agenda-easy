@@ -1,12 +1,22 @@
 package com.example.agenda.admin;
 
 public record AdminResponseDTO(
-        String fullName,
+        Long adminId,
+        String name,
+        String phone,
+        String photo,
+        String coverPhoto,
+        String status,
         String email
 ) {
     public AdminResponseDTO(Admin data) {
         this(
-                data.getFullName(),
+                data.getAdminId(),
+                data.getName(),
+                data.getPhone(),
+                data.getPhoto(),
+                data.getCoverPhoto(),
+                data.getStatus(),
                 data.getEmail()
         );
     }

@@ -4,6 +4,5 @@ public record UpdateProfessionalDTO(
         String fullName,
         String email,
         String passwordHash,
-        String phoneNumber,
-        String specialty
+        String phoneNumber
 ) {}

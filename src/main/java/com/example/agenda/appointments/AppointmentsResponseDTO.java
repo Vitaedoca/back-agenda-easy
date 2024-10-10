@@ -18,7 +18,7 @@ public record AppointmentsResponseDTO(
         public AppointmentsResponseDTO(Appointments data) {
                 this(
                         data.getAppointmentsId(),
-                        data.getUser().getFullName(),
+                        data.getClient().getName(),
                         data.getProfessional().getFullName(),
                         data.getService().getServiceName(),
                         data.getAppointmentDate(),

@@ -2,8 +2,8 @@ package com.example.agenda.infra.security;
 
 //import com.example.agenda.admin.Admin;
 //import com.example.agenda.admin.AdminRepository;
-import com.example.agenda.user.UserRepository;
-import com.example.agenda.user.Users;
+import com.example.agenda.client.Client;
+import com.example.agenda.client.ClientRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +24,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     TokenService tokenService;
 
     @Autowired
-    UserRepository userRepository;
+    ClientRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         var login = tokenService.validateToken(token);
 
         if (login != null) {
-            Users user = userRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("User Not Found"));
+            Client user = userRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("User Not Found"));
             var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
             var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
